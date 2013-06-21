@@ -4,22 +4,37 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-<uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-<uses-permission android:name="android.permission.CALL_PHONE"/>
+
+
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
-
+        android:targetSdkVersion="16" />
+ <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+ <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
-        android:allowBackup="true"
+       android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <receiver android:name="com.example.storage.CallReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+        android:label="abcd"
+         >
+         
+        <activity android:name="com.example.storage.MainActivity"> 
+                  <intent-filter>
+     <action android:name="android.intent.action.MAIN" />
+     <category android:name="android.intent.category.LAUNCHER" />
+ </intent-filter>
+ </activity>
+    <receiver android:name="com.example.storage.DeviceOnReceiver">  
+    <intent-filter>  
+        <action android:name="android.intent.action.BOOT_COMPLETED" />  
+    </intent-filter>  
+</receiver>
+             <receiver android:name=".CallReceiver" android:enabled="false">
+            
+                        <intent-filter android:priority="1">
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
       </application>
+     
 
 </manifest>

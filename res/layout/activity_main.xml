@@ -9,8 +9,31 @@
     tools:context=".MainActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/StartingMessage" />
+
+     <Button
+         android:id="@+id/StartServiceBtn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/CancelServiceBtn"
+         android:layout_alignBottom="@+id/CancelServiceBtn"
+         android:layout_marginLeft="49dp"
+         android:layout_toRightOf="@+id/CancelServiceBtn"
+         android:onClick="StartServiceBtnClicked"
+         android:text="@string/OK" />
+
+     <Button
+         android:id="@+id/CancelServiceBtn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/textView1"
+         android:layout_below="@+id/textView1"
+         android:layout_marginLeft="34dp"
+         android:layout_marginTop="35dp"
+         android:onClick="CancelServiceBtnClicked"
+         android:text="@string/Cancel" /> 
 
 </RelativeLayout>
