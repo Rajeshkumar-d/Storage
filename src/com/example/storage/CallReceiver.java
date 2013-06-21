@@ -19,13 +19,13 @@ public class CallReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		Log.w("state", "before");
-//		TelephonyManager mgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//		Log.w("state", Integer.toString(mgr.getCallState()));
-//		
-//		
-//		
-////		http://stackoverflow.com/questions/4422410/how-to-implement-a-contentobserver-for-call-logs
-//		
+		TelephonyManager mgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		Log.w("state", Integer.toString(mgr.getCallState()));
+		
+		
+		
+//		http://stackoverflow.com/questions/4422410/how-to-implement-a-contentobserver-for-call-logs
+		
 //		Handler dmhandler = new Handler();
 //		context.getApplicationContext().getContentResolver().registerContentObserver(android.provider.CallLog.Calls.CONTENT_URI,
 //				true, new CallContentObserver(dmhandler));
