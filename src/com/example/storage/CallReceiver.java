@@ -5,22 +5,53 @@ package com.example.storage;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
+
 
 
 
 
 public class CallReceiver extends BroadcastReceiver {
 
+	private final static String OFFHOOK = "OFFHOOK";
+	private final static String IDLE = "IDLE";
+	private static String previous_state = "";
+	private final static String ACTION_PHONE_STATE_CHANGED = "android.intent.action.PHONE_STATE";
+	private final static String ACTION_ANSWER = "android.intent.action.ANSWER";
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO Auto-generated method stub
-		Log.w("state", "before");
-		TelephonyManager mgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		Log.w("state", Integer.toString(mgr.getCallState()));
+		
+		
+		//During an outgoing call the initial state is OFFHOOK followed by IDLE after call attended
+		
+		String intentAction = intent.getAction();
+		
+		if (intentAction.equals(ACTION_ANSWER)) {
+			//introduce tap button here
+			Log.w("state", "incoming call attended");
+			
+		}
+		
+		
+		
+		
+		
+	else if (intentAction.equals(ACTION_PHONE_STATE_CHANGED))
+	{
+
+		String state = intent.getStringExtra("state");
+		Log.w("state", state);
+		if(previous_state.equals(OFFHOOK) && state.equals(IDLE)){
+				//introduce tap button here
+			Log.w("state", "Outgoing call attended");
+			
+			}
+		previous_state = state;
+	}
+		
+	
+		
+		
 		
 		
 		
@@ -31,12 +62,12 @@ public class CallReceiver extends BroadcastReceiver {
 //				true, new CallContentObserver(dmhandler));
 		
 		
-		Log.w("finish", "efgh");
-		 final String oldNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);          // 3
-	        this.setResultData("0123456789");                                                   // 4
-	        final String newNumber = this.getResultData();
-	        String msg = "Intercepted outgoing call. Old number " + oldNumber + ", new number " + newNumber;
-	        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//		Log.w("finish", "efgh");
+//		 final String oldNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);          // 3
+//	        this.setResultData("0123456789");                                                   // 4
+//	        final String newNumber = this.getResultData();
+//	        String msg = "Intercepted outgoing call. Old number " + oldNumber + ", new number " + newNumber;
+//	        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 		
 	}
     

@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 
 import android.os.Bundle;
 
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.View;
 
 
@@ -23,14 +25,13 @@ public class MainActivity extends Activity {
 	 
 	 public void StartServiceBtnClicked(View v){
 		
-		 PackageManager pk = getPackageManager();
-		 pk.setComponentEnabledSetting(new ComponentName(this,CallReceiver.class), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-		 
-			
-			getApplicationContext().getContentResolver().registerContentObserver(android.provider.CallLog.CONTENT_URI,
-					true, new CallContentObserver(null));
+		 PhoneStateListener li = new phlistener();
+		 TelephonyManager  tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		 tm.listen(li, PhoneStateListener.LISTEN_CALL_STATE);
 		 
 		 
+		 //PackageManager pk = getPackageManager();
+		// pk.setComponentEnabledSetting(new ComponentName(this,CallReceiver.class), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP); 
 		 this.finish();
 		 
 	 }
@@ -39,9 +40,6 @@ public class MainActivity extends Activity {
 		 PackageManager pk = getPackageManager();
 		 pk.setComponentEnabledSetting(new ComponentName(this,CallReceiver.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 			this.finish();
-			 
 		
-		
-			
 		 }
 }
