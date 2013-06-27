@@ -1,5 +1,6 @@
 package com.example.storage;
 
+import android.app.ActivityManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -7,7 +8,9 @@ import android.util.Log;
 
 public class phlistener extends PhoneStateListener {
 	
-	 public final void onCallStateChanged(int paramInt, String paramString)
+	// private static final String "ACTIVITY_SERVICE" = null;
+
+	public final void onCallStateChanged(int paramInt, String paramString)
 	  {
 	    super.onCallStateChanged(paramInt, paramString);
 	  
@@ -16,10 +19,17 @@ public class phlistener extends PhoneStateListener {
 	    	Log.w("state", "come");
 	     break;
 	    case TelephonyManager.CALL_STATE_OFFHOOK:
+	    {
+	    	
 	    	Log.w("state", "come1");
 	     break;
+	    }
 	    case TelephonyManager.CALL_STATE_IDLE:
-	    	Log.w("state", "come2");
+	    {
+	    
+            CallReceiver.current_state="IDLE";
+	    	Log.e("state", "come2");
+	    }
 	     break;
 	    default:
 	    	Log.w("state", "come3");
