@@ -4,6 +4,7 @@ package com.example.storage;
 
 import java.util.List;
 
+import android.R.bool;
 import android.R.string;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -61,14 +62,23 @@ public class CallReceiver extends BroadcastReceiver {
 	     
 	     String activityNameWhenDialInitiated = taskInfo.get(0).topActivity.getClassName();
          String phoneDialAppPackageName = componentInfo.getPackageName();
+         
+         boolean b1 = taskInfo.get(0).topActivity.getClassName().equals(activityNameWhenDialInitiated);
+         boolean b2 = !phoneDialAppPackageName.equals(componentInfo.getPackageName());
+        		 boolean b3 = !current_state.equals(IDLE);
 	  
-	     while((taskInfo.get(0).topActivity.getClassName().equals(activityNameWhenDialInitiated)) ||(!phoneDialAppPackageName.equals(componentInfo.getPackageName()))&&(!current_state.equals(IDLE)))
+	     while((b1||b2)&&b3)
 	     {
 	    	  taskInfo = am.getRunningTasks(1); 
+	    	  componentInfo = taskInfo.get(0).topActivity;
+	    	  
+	    	   b1 = taskInfo.get(0).topActivity.getClassName().equals(activityNameWhenDialInitiated);
+	           b2 = !phoneDialAppPackageName.equals(componentInfo.getPackageName());
+	           b3 = !current_state.equals(IDLE);
 
 		     Log.w("topActivity before", "CURRENT Activity ::"
 		             + taskInfo.get(0).topActivity.getClassName());
-		      componentInfo = taskInfo.get(0).topActivity;
+		     
 	     }
 	     
 	     taskInfo = am.getRunningTasks(1); 
@@ -80,7 +90,15 @@ public class CallReceiver extends BroadcastReceiver {
 	      Log.e("curre", current_state);
 	      Log.e("curre 1", componentInfo.getPackageName());
 	      Log.e("curre 2", phoneDialAppPackageName);
-	     if((!current_state.equals(IDLE)) &&componentInfo.getPackageName().equals(phoneDialAppPackageName))
+	      
+	      b1=!current_state.equals(IDLE);
+	      b2 =!taskInfo.get(0).topActivity.getClassName().equals(activityNameWhenDialInitiated);
+	      b3=componentInfo.getPackageName().equals(phoneDialAppPackageName);
+	      
+	      
+	      
+	      
+	     if(b1||(b2&&b3))
 	     {
 	    	 //Tap here
 	    	 Log.e("curre 3", "Call connected");
